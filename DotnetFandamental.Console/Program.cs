@@ -15,7 +15,7 @@ internal class Program
 
         lastName = lastName + 2;
 
-        Console.WriteLine("Thank you! " + fullName);
+        Console.WriteLine("Thank you! (From Github)" + fullName);
 
         Console.WriteLine("What is your national code?");
         string nationalCode = Console.ReadLine();
