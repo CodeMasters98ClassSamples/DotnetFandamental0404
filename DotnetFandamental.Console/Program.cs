@@ -3,8 +3,83 @@
 internal class Program
 {
 
+    public static string FormatPhoneNumber(string phoneNumber)
+    {
+        //اگر 10 کارکتر بود و همچنین با صفر شروع نشده بود باید یک صفر به اول رشته اضافه کنید
+        if (phoneNumber.Length == 10 && !phoneNumber.StartsWith('0'))
+        {
+            phoneNumber = "0" + phoneNumber;
+        }
+        string FormatedPhoneNumber = phoneNumber.Replace("+98", "0");
+        
+        return FormatedPhoneNumber;
+    }
+
+    public static void ShowWellcomeMessage(string firstName = "",string lastName = "")
+    {
+        Console.WriteLine($"Wellcome {firstName} {lastName} to csharp");
+    }
+
+    //Method OverLoad
+    public static int Sum(int num1, int num2)
+    {
+        if (num1 > 1)
+        {
+            //
+        }
+        return (num1 + num2);
+    }
+
+    public static int Sum(int num1, int num2, int num3)
+    {
+        int result = Sum(num1 , num2);
+        return (result + num3);
+    }
+
+    public static bool IsValidPhoneNumber(string input)
+    {
+
+        if (input == null) { 
+            return false;
+        }
+        if (input.Length != 11) //"aaaaaaaaaaa"
+            return false;
+        else
+            return true;
+    }
+
     static void Main(string[] args)
     {
+        int x = 1;
+        ShowWellcomeMessage();
+
+        Console.WriteLine("inp1?");
+        int inp1 = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("inp2?");
+        int inp2 = int.Parse(Console.ReadLine());
+
+
+        int result = Sum(num1: inp2, num2: inp1); //Call a method
+        Console.WriteLine("Sum is: " + result);
+
+        Console.WriteLine("Please enter your phone number?");
+        string phoneNumber = Console.ReadLine();
+        //Code
+        if (IsValidPhoneNumber(phoneNumber))
+        {
+            Console.WriteLine("Please eneter valid phone number");
+        }
+
+        Console.WriteLine("Please enter your another phone number?");
+        string anotherPhoneNumber = Console.ReadLine();
+        //Code
+        if (IsValidPhoneNumber(anotherPhoneNumber))
+        {
+            Console.WriteLine("Please eneter valid phone number");
+        }
+
+
         Console.WriteLine("Please enter index of day?");
         short ind = short.Parse(Console.ReadLine());
 
@@ -19,9 +94,6 @@ internal class Program
                 break;
         }
         Console.WriteLine(discountCode);
-
-
-
 
         Console.WriteLine("Age?");
         int age = int.Parse(Console.ReadLine());
