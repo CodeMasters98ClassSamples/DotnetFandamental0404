@@ -50,35 +50,49 @@ internal class Program
 
     static void Main(string[] args)
     {
-        int x = 1;
-        ShowWellcomeMessage();
+        string firstName = string.Empty;
+        string lastName = string.Empty;
 
-        Console.WriteLine("inp1?");
-        int inp1 = int.Parse(Console.ReadLine());
+        do
+        {
+            Console.WriteLine("What is your first name?");
+            firstName = Console.ReadLine() ?? string.Empty;
+            if (!string.IsNullOrEmpty(firstName) && firstName.Length > 2)
+                break;
+            else
+                Console.WriteLine("You entered invalid data!");
+        } while (true);
 
-        Console.WriteLine("inp2?");
-        int inp2 = int.Parse(Console.ReadLine());
 
+        while (true)
+        {
+            Console.WriteLine("What is your last name?");
+            lastName = Console.ReadLine() ?? string.Empty;
+            if (!string.IsNullOrEmpty(lastName) && lastName.Length > 2)
+                break;
+            else
+                Console.WriteLine("You entered invalid data!");
+        }
 
-        int result = Sum(num1: inp2, num2: inp1); //Call a method
-        Console.WriteLine("Sum is: " + result);
+        ShowWellcomeMessage(firstName: firstName, lastName: lastName);
 
         Console.WriteLine("Please enter your phone number?");
-        string phoneNumber = Console.ReadLine();
-        //Code
-        if (IsValidPhoneNumber(phoneNumber))
+        for (;;)
         {
-            Console.WriteLine("Please eneter valid phone number");
+            try
+            {
+                string phoneNumber = Console.ReadLine() ?? throw new Exception("Invalid PhoneNumber!");
+                if (IsValidPhoneNumber(phoneNumber))
+                    break;
+                else
+                    Console.WriteLine("You entered invalid data!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("You entered invalid data!");
+                continue;
+            }   
         }
-
-        Console.WriteLine("Please enter your another phone number?");
-        string anotherPhoneNumber = Console.ReadLine();
-        //Code
-        if (IsValidPhoneNumber(anotherPhoneNumber))
-        {
-            Console.WriteLine("Please eneter valid phone number");
-        }
-
 
         Console.WriteLine("Please enter index of day?");
         short ind = short.Parse(Console.ReadLine());
@@ -115,38 +129,7 @@ internal class Program
         Console.WriteLine("Age: " + age);
         Console.WriteLine($"Age: {age}");
 
-        Console.WriteLine("Please enter first number!");
-        int num1 = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("Please enter second number!");
-        int num2 = int.Parse(Console.ReadLine());
-        //M -> men , F-> ..
-
-        if (num1 > num2) //-> true
-        {
-            Console.WriteLine("Num1 is bigger than num2");
-        }
-        else
-        {
-            Console.WriteLine("Num2 is bigger than num1");
-        }
-
-        Console.WriteLine($"{num2} / {num1} is {num2 / num1}");
-        Console.WriteLine(num2 + num1);
-        Console.WriteLine(num2 * num1);
-        Console.WriteLine(num2 % num1);
-
-
-
-
-
-        //Type name = intitialValue;
-
-        Console.WriteLine("What is your first name?");
-        string firstName = Console.ReadLine();
-
-        Console.WriteLine("What is your last name?");
-        string lastName = Console.ReadLine();
+       
 
 
         //Smaller to bigger
