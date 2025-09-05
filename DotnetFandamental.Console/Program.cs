@@ -1,21 +1,33 @@
-﻿namespace DotnetFandamental;
+﻿using DotnetFandamental.Enums;
+using DotnetFandamental.Models;
+using System.ComponentModel;
+
+namespace DotnetFandamental;
 
 internal class Program
 {
-
     public static string FormatPhoneNumber(string phoneNumber)
     {
         //اگر 10 کارکتر بود و همچنین با صفر شروع نشده بود باید یک صفر به اول رشته اضافه کنید
-        if (phoneNumber.Length == 10 && !phoneNumber.StartsWith('0'))
+        string FormatedPhoneNumber = "";
+        try
         {
-            phoneNumber = "0" + phoneNumber;
+            if (phoneNumber.Length == 10 && !phoneNumber.StartsWith('0'))
+            {
+                phoneNumber = "0" + phoneNumber;
+            }
+            FormatedPhoneNumber = phoneNumber.Replace("+98", "0");
+
+            return FormatedPhoneNumber;
         }
-        string FormatedPhoneNumber = phoneNumber.Replace("+98", "0");
-        
+        catch (Exception ex)
+        {
+
+        }
         return FormatedPhoneNumber;
     }
 
-    public static void ShowWellcomeMessage(string firstName = "",string lastName = "")
+    public static void ShowWellcomeMessage(string firstName = "", string lastName = "")
     {
         Console.WriteLine($"Wellcome {firstName} {lastName} to csharp");
     }
@@ -32,14 +44,15 @@ internal class Program
 
     public static int Sum(int num1, int num2, int num3)
     {
-        int result = Sum(num1 , num2);
+        int result = Sum(num1, num2);
         return (result + num3);
     }
 
     public static bool IsValidPhoneNumber(string input)
     {
 
-        if (input == null) { 
+        if (input == null)
+        {
             return false;
         }
         if (input.Length != 11) //"aaaaaaaaaaa"
@@ -48,16 +61,45 @@ internal class Program
             return true;
     }
 
+    public static bool IsValidGenderInput(string input)
+    {
+        if (string.IsNullOrEmpty(input) || input.Length > 1)
+            return false;
+        if (input.ToLower() == "m" || input.ToLower() == "f")
+            return false;
+        else
+            return true;
+    }
+
     static void Main(string[] args)
     {
-        string firstName = string.Empty;
-        string lastName = string.Empty;
+        
+        Student[] students = new Student[20];
+
+        //DataType Name;
+        Student student = new Student(); //Shape 1
+
+        Console.WriteLine("Please eneter your gender?{M: Men, F: Female}");
+        string genderStr = Console.ReadLine() ?? string.Empty;
+        if (genderStr.ToUpper() == "M")
+        {
+            student.Gender = Gender.MALE;
+        }
+        else if (genderStr.ToUpper() == "F")
+        {
+            student.Gender = Gender.FEMALE;
+        }
+        else
+        {
+
+        }
+
 
         do
         {
-            Console.WriteLine("What is your first name?");
-            firstName = Console.ReadLine() ?? string.Empty;
-            if (!string.IsNullOrEmpty(firstName) && firstName.Length > 2)
+            System.Console.WriteLine("What is your first name?");
+            student.FirstName = System.Console.ReadLine() ?? string.Empty;
+            if (!string.IsNullOrEmpty(student.FirstName) && student.FirstName.Length > 2)
                 break;
             else
                 Console.WriteLine("You entered invalid data!");
@@ -67,22 +109,22 @@ internal class Program
         while (true)
         {
             Console.WriteLine("What is your last name?");
-            lastName = Console.ReadLine() ?? string.Empty;
-            if (!string.IsNullOrEmpty(lastName) && lastName.Length > 2)
+            student.LastName = Console.ReadLine() ?? string.Empty;
+            if (!string.IsNullOrEmpty(student.LastName) && student.LastName.Length > 2)
                 break;
             else
                 Console.WriteLine("You entered invalid data!");
         }
 
-        ShowWellcomeMessage(firstName: firstName, lastName: lastName);
+        ShowWellcomeMessage(firstName: student.FirstName, lastName: student.LastName);
 
         Console.WriteLine("Please enter your phone number?");
-        for (;;)
+        for (; ; )
         {
             try
             {
-                string phoneNumber = Console.ReadLine() ?? throw new Exception("Invalid PhoneNumber!");
-                if (IsValidPhoneNumber(phoneNumber))
+                student.PhoneNumber = Console.ReadLine() ?? throw new Exception("Invalid PhoneNumber!");
+                if (IsValidPhoneNumber(student.PhoneNumber))
                     break;
                 else
                     Console.WriteLine("You entered invalid data!");
@@ -91,7 +133,7 @@ internal class Program
             {
                 Console.WriteLine("You entered invalid data!");
                 continue;
-            }   
+            }
         }
 
         Console.WriteLine("Please enter index of day?");
@@ -110,42 +152,16 @@ internal class Program
         Console.WriteLine(discountCode);
 
         Console.WriteLine("Age?");
-        int age = int.Parse(Console.ReadLine());
+        student.Age = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Please enter your gender?(M-> Men, F -> Female)");
         string gender = Console.ReadLine();
 
-        if (age > 25 && gender == "M")
-        {
-            //Code
-        }
-        else if (age > 18 && gender == "F")
-        {
-            //Code
-        }
-        Console.WriteLine("Age?");
-        if (gender == "M")
-            age = int.Parse(Console.ReadLine());
-        Console.WriteLine("Age: " + age);
-        Console.WriteLine($"Age: {age}");
-
-       
-
-
-        //Smaller to bigger
-        //int num1 = 123;
-        //long lng1 = num1;
-
-        //long lng2 = 123;
-        //int num2 = (int)lng2;
-
-        string fullName = firstName + " " + lastName;
-
-        lastName = lastName + 2;
-
-        Console.WriteLine("Thank you! (From Github)" + fullName);
+        Console.WriteLine("Thank you! (From Github)" + student.FullName);
 
         Console.WriteLine("What is your national code?");
         string nationalCode = Console.ReadLine();
+
+
     }
 }
